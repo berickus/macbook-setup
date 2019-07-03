@@ -65,4 +65,7 @@ sudo ln -s ~/.zshrc ~/.zshrc
 rm -f ~/checkout
 sudo ln -s ~/Documents/checkout ~/checkout
 
-#
+# setup git
+git config --global user.name "Benjamin Vonlanthen"
+git config --global user.email "benjamin.vonlanthen@tamedia.ch"
+
