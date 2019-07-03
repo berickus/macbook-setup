@@ -28,7 +28,8 @@ sudo installer -pkg 1password.pkg -target /
 rm 1password.pkg
 
 # install slack
-curl https://downloads.slack-edge.com/mac_releases/Slack-3.4.2.dmg --output slack.dmg
+read -p "Enter slack version to download (https://slack.com/intl/en-ch/downloads/mac?geocode=en-ch): " version
+curl https://downloads.slack-edge.com/mac_releases/Slack-$version.dmg --output slack.dmg
 sudo hdiutil attach slack.dmg -quiet -nobrowse
 cp -R /Volumes/Slack.app/Slack.app /Applications
 sudo hdiutil detach /Volumes/Slack.app -quiet
@@ -40,7 +41,8 @@ cp -R /Volumes/WhatsApp\ Installer/WhatsApp.app /Applications
 sudo hdiutil detach /Volumes/WhatsApp\ Installer -quiet
 
 # install signal
-curl https://updates.signal.org/desktop/signal-desktop-mac-1.25.3.zip --output signal.zip
+read -p "Enter signal version to download (https://signal.org/download/): " version
+curl https://updates.signal.org/desktop/signal-desktop-mac-$version.zip --output signal.zip
 read -p "Unzip manually and press enter"
 mv Signal.app /Applications
 
@@ -51,13 +53,17 @@ mv Visual\ Studio\ Code.app /Applications
 rm code.zip
 
 # install toolbox
-curl -L https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.15.5387.dmg --output toolbox.dmg
+read -p "Enter jetbrains toolbox version to download (https://www.jetbrains.com/toolbox/download/download-thanks.html): " version
+curl -L https://download.jetbrains.com/toolbox/jetbrains-toolbox-$version.dmg --output toolbox.dmg
 sudo hdiutil attach toolbox.dmg -quiet -nobrowse
 cp -R /Volumes/JetBrains\ Toolbox/JetBrains\ Toolbox.app /Applications
 sudo hdiutil detach /Volumes/JetBrains\ Toolbox -quiet
 
 # setup zsh 
-touch .aliases
+touch ~/.aliases
+touch ~/.vimrc
+echo "set mouse-=a" >> ~/.vimrc
+echo "set backspace=2" >> ~/.vimrc
 
 rm -f ~/.zshrc
 sudo ln -s ~/.zshrc ~/.zshrc
@@ -66,6 +72,18 @@ rm -f ~/checkout
 sudo ln -s ~/Documents/checkout ~/checkout
 
 # setup git
-git config --global user.name "Benjamin Vonlanthen"
-git config --global user.email "benjamin.vonlanthen@tamedia.ch"
+read -p "Enter your email github key: " email
+ssh-keygen -t rsa -b 4096 -C "$email" -f ~/.ssh/github_id_rsa -q -N ""
+echo "GitHub public key:"
+cat ~/.ssh/github_id_rsa.pub
+reap -p "Add this to your github account and press any key to continue"
+
+read -p "Enter your email work key: " email
+ssh-keygen -t rsa -b 4096 -C "$email" -f ~/.ssh/work_id_rsa -q -N ""
+echo "Work public key:"
+cat ~/.ssh/work_id_rsa.pub
+
+read -p "Enter your name: " name
+git config --global user.name "$name"
+git config --global user.email "$email"
 
