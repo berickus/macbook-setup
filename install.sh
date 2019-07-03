@@ -65,11 +65,7 @@ touch ~/.vimrc
 echo "set mouse-=a" >> ~/.vimrc
 echo "set backspace=2" >> ~/.vimrc
 
-rm -f ~/.zshrc
-sudo ln -s ~/.zshrc ~/.zshrc
-
-rm -f ~/checkout
-sudo ln -s ~/Documents/checkout ~/checkout
+cp .zshrc ~/.zshrc
 
 # setup git
 read -p "Enter your email github key: " email
