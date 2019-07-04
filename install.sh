@@ -64,6 +64,8 @@ touch ~/.aliases
 touch ~/.vimrc
 echo "set mouse-=a" >> ~/.vimrc
 echo "set backspace=2" >> ~/.vimrc
+echo "filetype plugin indent on" >> ~/.vimrc
+echo "syntax on" >> ~/.vimrc
 
 cp .zshrc ~/.zshrc
 

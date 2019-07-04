@@ -48,7 +48,7 @@ alias zshconfig="mate ~/.zshrc"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git colored-man colorize github jira vagrant virtualenv pip python brew osx zsh-syntax-highlighting)
+plugins=(git colorize github jira vagrant virtualenv pip python osx)
 
 source $ZSH/oh-my-zsh.sh
 
