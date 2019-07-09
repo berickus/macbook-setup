@@ -85,3 +85,17 @@ read -p "Enter your name: " name
 git config --global user.name "$name"
 git config --global user.email "$email"
 
+touch ~/.ssh/config
+chmod 644 ~/.ssh/config
+
+echo "Host *
+	ServerAliveInterval 120
+	ServerAliveCountMax 30
+	AddKeysToAgent yes
+	UseKeychain yes
+
+# Github
+Host github.com
+	IdentityFile ~/.ssh/github_id_rsa
+	User Berickus
+" >> ~/.ssh/config
