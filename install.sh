@@ -8,11 +8,7 @@ sudo hdiutil detach /Volumes/Google\ Chrome/ -quiet
 rm googlechrome.dmg
 
 # install java8
-curl "https://download.oracle.com/otn/java/jdk/8u211-b12/478a62b7d4e34b78b671c754eaaf38ab/jdk-8u211-macosx-x64.dmg?AuthParam=1562139807_31779ae637a5593c65da7c1a7e81b8f5" --output java.dmg
-sudo hdiutil attach java.dmg -quiet -nobrowse
-sudo installer -pkg /Volumes/JDK\ 8\ Update\ 211/JDK\ 8\ Update\ 211.pkg -target /
-sudo hdiutil detach /Volumes/JDK\ 8\ Update\ 211 -quiet
-rm java.dmg
+read -p "Install java 8 from https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html after press any key to continue"
 
 # install homebrew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
