@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd ~/Downloads/
+
 # install google chrome
 if [ ! -d "/Applications/Google Chrome.app" ]; then
 	echo "Installing Google Chrome"
@@ -52,6 +54,7 @@ if [ ! -d "/Applications/WhatsApp.app" ]; then
 	sudo hdiutil attach WhatsApp.dmg -quiet -nobrowse
 	cp -R /Volumes/WhatsApp\ Installer/WhatsApp.app /Applications
 	sudo hdiutil detach /Volumes/WhatsApp\ Installer -quiet
+	rm WhatsApp.dmg
 else
 	echo "WhatsApp already installed, skipping..."
 fi
@@ -81,11 +84,12 @@ fi
 # install toolbox
 if [ ! -d "/Applications/JetBrains\ Toolbox.app" ]; then
 	echo "Installing JetBrains Toolbox"
-	read -p "Enter jetbrains toolbox version to download (https://www.jetbrains.com/toolbox/download/download-thanks.html): " version
-	curl -L https://download.jetbrains.com/toolbox/jetbrains-toolbox-$version.dmg --output toolbox.dmg
-	sudo hdiutil attach toolbox.dmg -quiet -nobrowse
+	read -p "Download toolbox from here: https://www.jetbrains.com/toolbox/download/download-thanks.html and press any key to continue."
+
+	sudo hdiutil attach jetbrains-toolbox*.dmg -quiet -nobrowse
 	cp -R /Volumes/JetBrains\ Toolbox/JetBrains\ Toolbox.app /Applications
 	sudo hdiutil detach /Volumes/JetBrains\ Toolbox -quiet
+	rm jetbrains-toolbox*.dmg
 else
 	echo "JetBrains Toolbox already installed, skipping..."
 fi
@@ -105,7 +109,7 @@ read -p "Enter your email github key: " email
 ssh-keygen -t rsa -b 4096 -C "$email" -f ~/.ssh/github_id_rsa -q -N ""
 echo "GitHub public key:"
 cat ~/.ssh/github_id_rsa.pub
-reap -p "Add this to your github account and press any key to continue"
+read -p "Add this to your github account and press any key to continue"
 
 read -p "Enter your email work key: " email
 ssh-keygen -t rsa -b 4096 -C "$email" -f ~/.ssh/work_id_rsa -q -N ""
