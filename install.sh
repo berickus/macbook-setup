@@ -25,6 +25,7 @@ upgrade_oh_my_zsh
 
 # install 1password
 if [ ! -d "/Applications/1Password 7.app" ]; then
+	echo "Installing 1Password"
 	curl -L https://app-updates.agilebits.com/download/OPM7 --output 1password.pkg
 	sudo installer -pkg 1password.pkg -target /
 	rm 1password.pkg
@@ -34,8 +35,9 @@ fi
 
 # install slack
 if [ ! -d "/Applications/Slack.app" ]; then
+	echo "Installing Slack"
 	read -p "Enter slack version to download (https://slack.com/intl/en-ch/downloads/mac?geocode=en-ch): " version
-	curl https://downloads.slack-edge.com/mac_releases/Slack-$version.dmg --output slack.dmg
+	curl https://downloads.slack-edge.com/mac_releases/Slack-$version-macOS.dmg --output slack.dmg
 	sudo hdiutil attach slack.dmg -quiet -nobrowse
 	cp -R /Volumes/Slack.app/Slack.app /Applications
 	sudo hdiutil detach /Volumes/Slack.app -quiet
@@ -45,6 +47,7 @@ fi
 
 # install whatsapp
 if [ ! -d "/Applications/WhatsApp.app" ]; then
+	echo "Installing WhatsApp"
 	curl -L https://web.whatsapp.com/desktop/mac/files/WhatsApp.dmg --output WhatsApp.dmg
 	sudo hdiutil attach WhatsApp.dmg -quiet -nobrowse
 	cp -R /Volumes/WhatsApp\ Installer/WhatsApp.app /Applications
@@ -55,6 +58,7 @@ fi
 
 # install signal
 if [ ! -d "/Applications/Signal.app" ]; then
+	echo "Installing Signal"
 	read -p "Enter signal version to download (https://signal.org/download/): " version
 	curl https://updates.signal.org/desktop/signal-desktop-mac-$version.zip --output signal.zip
 	read -p "Unzip manually and press enter"
@@ -65,6 +69,7 @@ fi
 
 # install code
 if [ ! -d "/Applications/Visual Studio Code.app" ]; then
+	echo "Installing Microsoft Code"
 	curl -L https://go.microsoft.com/fwlink/?LinkID=620882 --output code.zip
 	unzip -q code.zip
 	mv Visual\ Studio\ Code.app /Applications
@@ -75,6 +80,7 @@ fi
 
 # install toolbox
 if [ ! -d "/Applications/JetBrains\ Toolbox.app" ]; then
+	echo "Installing JetBrains Toolbox"
 	read -p "Enter jetbrains toolbox version to download (https://www.jetbrains.com/toolbox/download/download-thanks.html): " version
 	curl -L https://download.jetbrains.com/toolbox/jetbrains-toolbox-$version.dmg --output toolbox.dmg
 	sudo hdiutil attach toolbox.dmg -quiet -nobrowse
