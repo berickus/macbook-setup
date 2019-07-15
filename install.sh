@@ -82,10 +82,9 @@ else
 fi
 
 # install toolbox
-if [ ! -d "/Applications/JetBrains\ Toolbox.app" ]; then
+if [ ! -d "/Applications/JetBrains Toolbox.app" ]; then
 	echo "Installing JetBrains Toolbox"
 	read -p "Download toolbox from here: https://www.jetbrains.com/toolbox/download/download-thanks.html and press any key to continue."
-
 	sudo hdiutil attach jetbrains-toolbox*.dmg -quiet -nobrowse
 	cp -R /Volumes/JetBrains\ Toolbox/JetBrains\ Toolbox.app /Applications
 	sudo hdiutil detach /Volumes/JetBrains\ Toolbox -quiet
