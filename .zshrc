@@ -124,3 +124,4 @@ alias prettyJson="python -m json.tool"
 itemsxml() { git diff --name-only $1 | fgrep "items.xml" }
 
 eval "$(thefuck --alias)"
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
