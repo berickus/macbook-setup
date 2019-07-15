@@ -102,6 +102,7 @@ echo "set backspace=2" >> ~/.vimrc
 echo "filetype plugin indent on" >> ~/.vimrc
 echo "syntax on" >> ~/.vimrc
 
+curl "https://raw.githubusercontent.com/berickus/macbook-setup/master/.zshrc" -O
 cp .zshrc ~/.zshrc
 
 # setup git
