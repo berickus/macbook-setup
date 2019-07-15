@@ -1,11 +1,16 @@
 #!/bin/sh
 
 # install google chrome
-curl https://dl.google.com/chrome/mac/stable/CHFA/googlechrome.dmg --output googlechrome.dmg
-sudo hdiutil attach googlechrome.dmg -quiet -nobrowse
-cp -R /Volumes/Google\ Chrome/Google\ Chrome.app /Applications
-sudo hdiutil detach /Volumes/Google\ Chrome/ -quiet
-rm googlechrome.dmg
+if [ ! -d "/Applications/Google Chrome.app" ]; then
+	echo "Installing Google Chrome"
+	curl https://dl.google.com/chrome/mac/stable/CHFA/googlechrome.dmg --output googlechrome.dmg
+	sudo hdiutil attach googlechrome.dmg -quiet -nobrowse
+	cp -R /Volumes/Google\ Chrome/Google\ Chrome.app /Applications
+	sudo hdiutil detach /Volumes/Google\ Chrome/ -quiet
+	rm googlechrome.dmg
+else
+	echo "Google Chrome already installed, skipping..."
+fi
 
 # install java8
 read -p "Install java 8 from https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html after press any key to continue"
@@ -19,41 +24,65 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 upgrade_oh_my_zsh
 
 # install 1password
-curl -L https://app-updates.agilebits.com/download/OPM7 --output 1password.pkg
-sudo installer -pkg 1password.pkg -target /
-rm 1password.pkg
+if [ ! -d "/Applications/1Password 7.app" ]; then
+	curl -L https://app-updates.agilebits.com/download/OPM7 --output 1password.pkg
+	sudo installer -pkg 1password.pkg -target /
+	rm 1password.pkg
+else
+	echo "1Password already installed, skipping..."
+fi
 
 # install slack
-read -p "Enter slack version to download (https://slack.com/intl/en-ch/downloads/mac?geocode=en-ch): " version
-curl https://downloads.slack-edge.com/mac_releases/Slack-$version.dmg --output slack.dmg
-sudo hdiutil attach slack.dmg -quiet -nobrowse
-cp -R /Volumes/Slack.app/Slack.app /Applications
-sudo hdiutil detach /Volumes/Slack.app -quiet
+if [ ! -d "/Applications/Slack.app" ]; then
+	read -p "Enter slack version to download (https://slack.com/intl/en-ch/downloads/mac?geocode=en-ch): " version
+	curl https://downloads.slack-edge.com/mac_releases/Slack-$version.dmg --output slack.dmg
+	sudo hdiutil attach slack.dmg -quiet -nobrowse
+	cp -R /Volumes/Slack.app/Slack.app /Applications
+	sudo hdiutil detach /Volumes/Slack.app -quiet
+else
+	echo "Slack already installed, skipping..."
+fi
 
 # install whatsapp
-curl -L https://web.whatsapp.com/desktop/mac/files/WhatsApp.dmg --output WhatsApp.dmg
-sudo hdiutil attach WhatsApp.dmg -quiet -nobrowse
-cp -R /Volumes/WhatsApp\ Installer/WhatsApp.app /Applications
-sudo hdiutil detach /Volumes/WhatsApp\ Installer -quiet
+if [ ! -d "/Applications/WhatsApp.app" ]; then
+	curl -L https://web.whatsapp.com/desktop/mac/files/WhatsApp.dmg --output WhatsApp.dmg
+	sudo hdiutil attach WhatsApp.dmg -quiet -nobrowse
+	cp -R /Volumes/WhatsApp\ Installer/WhatsApp.app /Applications
+	sudo hdiutil detach /Volumes/WhatsApp\ Installer -quiet
+else
+	echo "WhatsApp already installed, skipping..."
+fi
 
 # install signal
-read -p "Enter signal version to download (https://signal.org/download/): " version
-curl https://updates.signal.org/desktop/signal-desktop-mac-$version.zip --output signal.zip
-read -p "Unzip manually and press enter"
-mv Signal.app /Applications
+if [ ! -d "/Applications/Signal.app" ]; then
+	read -p "Enter signal version to download (https://signal.org/download/): " version
+	curl https://updates.signal.org/desktop/signal-desktop-mac-$version.zip --output signal.zip
+	read -p "Unzip manually and press enter"
+	mv Signal.app /Applications
+else
+	echo "Signal already installed, skipping..."
+fi
 
 # install code
-curl -L https://go.microsoft.com/fwlink/?LinkID=620882 --output code.zip
-unzip -q code.zip
-mv Visual\ Studio\ Code.app /Applications
-rm code.zip
+if [ ! -d "/Applications/Visual Studio Code.app" ]; then
+	curl -L https://go.microsoft.com/fwlink/?LinkID=620882 --output code.zip
+	unzip -q code.zip
+	mv Visual\ Studio\ Code.app /Applications
+	rm code.zip
+else
+	echo "Microsoft Code already installed, skipping..."
+fi
 
 # install toolbox
-read -p "Enter jetbrains toolbox version to download (https://www.jetbrains.com/toolbox/download/download-thanks.html): " version
-curl -L https://download.jetbrains.com/toolbox/jetbrains-toolbox-$version.dmg --output toolbox.dmg
-sudo hdiutil attach toolbox.dmg -quiet -nobrowse
-cp -R /Volumes/JetBrains\ Toolbox/JetBrains\ Toolbox.app /Applications
-sudo hdiutil detach /Volumes/JetBrains\ Toolbox -quiet
+if [ ! -d "/Applications/JetBrains\ Toolbox.app" ]; then
+	read -p "Enter jetbrains toolbox version to download (https://www.jetbrains.com/toolbox/download/download-thanks.html): " version
+	curl -L https://download.jetbrains.com/toolbox/jetbrains-toolbox-$version.dmg --output toolbox.dmg
+	sudo hdiutil attach toolbox.dmg -quiet -nobrowse
+	cp -R /Volumes/JetBrains\ Toolbox/JetBrains\ Toolbox.app /Applications
+	sudo hdiutil detach /Volumes/JetBrains\ Toolbox -quiet
+else
+	echo "JetBrains Toolbox already installed, skipping..."
+fi
 
 # setup zsh 
 touch ~/.aliases
