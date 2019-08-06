@@ -21,7 +21,7 @@ read -p "Install java 8 from https://www.oracle.com/technetwork/java/javase/down
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update
 brew cask install iterm2
-brew install vim openssl zsh thefuck gzip git maven 
+brew install vim openssl zsh thefuck gzip git maven git-flow
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 upgrade_oh_my_zsh
 
@@ -93,6 +93,30 @@ else
 	echo "JetBrains Toolbox already installed, skipping..."
 fi
 
+# install google drive
+if [ ! -d "/Applications/Backup and Sync.app" ]; then
+        echo "Installing Google Backup and Sync"
+	curl -L https://dl.google.com/drive/InstallBackupAndSync.dmg --output InstallBackupAndSync.dmg
+        sudo hdiutil attach InstallBackupAndSync.dmg -quiet -nobrowse
+        cp -R /Volumes/Install\ Backup\ and\ Sync\ from\ Google/Backup\ and\ Sync.app /Applications
+        sudo hdiutil detach /Volumes/Install\ Backup\ and\ Sync\ from\ Google -quiet
+        rm InstallBackupAndSync.dmg
+else
+        echo "Google Backup and Sync already installed, skipping..."
+fi
+
+# install libreoffice
+if [ ! -d "/Applications/LibreOffice.app" ]; then
+        echo "Installing LibreOffice"
+        curl -L https://mirror.init7.net/tdf/libreoffice/stable/6.2.5/mac/x86_64/LibreOffice_6.2.5_MacOS_x86-64.dmg --output LibreOffice.dmg
+        sudo hdiutil attach LibreOffice.dmg -quiet -nobrowse
+        cp -R /Volumes/LibreOffice/LibreOffice.app /Applications
+        sudo hdiutil detach /Volumes/LibreOffice -quiet
+        rm LibreOffice.dmg
+else
+        echo "LibreOffice already installed, skipping..."
+fi
+
 # setup zsh 
 touch ~/.aliases
 touch ~/.vimrc
@@ -119,6 +143,7 @@ cat ~/.ssh/work_id_rsa.pub
 read -p "Enter your name: " name
 git config --global user.name "$name"
 git config --global user.email "$email"
+git config --global core.autocrlf input
 
 touch ~/.ssh/config
 chmod 644 ~/.ssh/config
@@ -134,3 +159,7 @@ Host github.com
 	IdentityFile ~/.ssh/github_id_rsa
 	User Berickus
 " >> ~/.ssh/config
+
+# checkout macsetup
+mkdir -p ~/Documents/checkouts
+git clone git@github.com:berickus/macbook-setup.git git.macbook-setup
